@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "3e6ea291-9b6b-4998-b534-4a6ae9043062",
+		"name": "Backend API for address checks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34553285"
+	},
+	"item": [
+		{
+			"name": "Single City berlin 10409",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status should be 200\", function () {\r",
+							"   if(pm.response)\r",
+							"    {\r",
+							"        pm.response?.to.have.status(200);   \r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should be an array\", function () {\r",
+							"    pm.expect(pm.response?.json()).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should return exactly one city: Berlin\", function () {\r",
+							"    const responseBody = pm.response?.json();\r",
+							"    pm.expect(responseBody).to.have.lengthOf(1);\r",
+							"    pm.expect(responseBody[0].Name).to.equal(\"Berlin\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://service.verivox.de/geo/latest/cities/10409",
+					"protocol": "https",
+					"host": [
+						"service",
+						"verivox",
+						"de"
+					],
+					"path": [
+						"geo",
+						"latest",
+						"cities",
+						"10409"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get City for Postcode 77716",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response should be an array\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('array');\r",
+							"});\r",
+							"pm.test(\"Response is an array with three cities\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('array').that.has.lengthOf(3);\r",
+							"    pm.expect(jsonData.map(city => city.Name)).to.include.members([\"Fischerbach\", \"Haslach\", \"Hofstetten\"]);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://service.verivox.de/geo/latest/cities/77716",
+					"protocol": "https",
+					"host": [
+						"service",
+						"verivox",
+						"de"
+					],
+					"path": [
+						"geo",
+						"latest",
+						"cities",
+						"77716"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
